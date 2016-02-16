@@ -3,10 +3,10 @@ package com.orderbird;
 import java.util.ArrayList;
 import java.util.List;
 
-public class VClock {
+public class VClockArray {
     protected List<Integer> vector;
 
-    public VClock() {
+    public VClockArray() {
         vector = new ArrayList<>();
     }
 
@@ -22,14 +22,14 @@ public class VClock {
         vector.set(idx, ++val);
     }
 
-    public VClock increment(int idx) {
-        VClock result = clone();
+    public VClockArray increment(int idx) {
+        VClockArray result = clone();
         result.increment_inplace(idx);
         return result;
     }
 
-    public VClock merge(VClock other, int idx) {
-        VClock longer, shorter;
+    public VClockArray merge(VClockArray other, int idx) {
+        VClockArray longer, shorter;
         if (vector.size() >= other.vector.size()) {
             longer = clone();
             shorter = other;
@@ -46,7 +46,7 @@ public class VClock {
         return longer;
     }
 
-    public boolean after(VClock other) {
+    public boolean after(VClockArray other) {
         if (other.vector.size() > vector.size()) {
             return false;
         }
@@ -66,17 +66,17 @@ public class VClock {
         return true;
     }
 
-    public boolean before(VClock other) {
+    public boolean before(VClockArray other) {
         return other.after(this);
     }
 
-    public boolean concurrent(VClock other) {
+    public boolean concurrent(VClockArray other) {
         return !after(other) && !other.after(this);
     }
 
     @Override
-    protected VClock clone()  {
-        VClock clone = new VClock();
+    protected VClockArray clone()  {
+        VClockArray clone = new VClockArray();
         clone.vector = new ArrayList<>(this.vector);
         return clone;
     }

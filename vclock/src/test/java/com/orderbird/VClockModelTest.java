@@ -10,9 +10,9 @@ import static org.junit.Assert.*;
 public class VClockModelTest {
     @Test
     public void basic_increment() throws Exception {
-        VClock a = new VClock();
-        VClock b = a.increment(0);
-        VClock c = b.increment(3);
+        VClockArray a = new VClockArray();
+        VClockArray b = a.increment(0);
+        VClockArray c = b.increment(3);
         assertEquals(a.vector.size(), 0);
         assertEquals(b.vector.size(), 1);
         assertEquals((int)b.vector.get(0), 1);
@@ -23,10 +23,10 @@ public class VClockModelTest {
 
     @Test
     public void basic_compare() throws Exception {
-        VClock a = new VClock();
-        VClock b = a.increment(0);
-        VClock c = b.increment(3);
-        VClock d = b.increment(2);
+        VClockArray a = new VClockArray();
+        VClockArray b = a.increment(0);
+        VClockArray c = b.increment(3);
+        VClockArray d = b.increment(2);
         // everyone is after a
         assertTrue(b.after(a));
         assertTrue(c.after(a));
@@ -50,11 +50,11 @@ public class VClockModelTest {
 
     @Test
     public void compare_merge() throws Exception {
-        VClock a = new VClock().increment(2);
-        VClock b = a.increment(1);
-        VClock c = a.increment(2);
-        VClock merged = b.merge(c, 0);
-        VClock merged2 = b.merge(c, 1);
+        VClockArray a = new VClockArray().increment(2);
+        VClockArray b = a.increment(1);
+        VClockArray c = a.increment(2);
+        VClockArray merged = b.merge(c, 0);
+        VClockArray merged2 = b.merge(c, 1);
         assertTrue(b.concurrent(c));
         // check some values
         assertEquals(merged.vector.size(), 3);
