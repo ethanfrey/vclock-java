@@ -7,7 +7,7 @@ import static org.junit.Assert.*;
 /**
  * To work on unit tests, switch the Test Artifact in the Build Variants view.
  */
-public class VClockModelTest {
+public class VClockArrayModelTest {
     @Test
     public void basic_increment() throws Exception {
         VClockArray a = new VClockArray();
